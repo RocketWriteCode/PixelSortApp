@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PixelEngine.cs" />
     <EmbeddedResource Include="PixelSort.resx">
       <DependentUpon>PixelSort.cs</DependentUpon>
     </EmbeddedResource>

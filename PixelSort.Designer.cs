@@ -1,5 +1,5 @@
 ﻿
-namespace WindowsFormsApp1
+namespace PixelSortApp
 {
     partial class PixelSort
     {
@@ -79,7 +79,7 @@ namespace WindowsFormsApp1
             this.SortAllHorizontalButton.TabIndex = 3;
             this.SortAllHorizontalButton.Text = "Sort All Rows";
             this.SortAllHorizontalButton.UseVisualStyleBackColor = true;
-            this.SortAllHorizontalButton.Click += new System.EventHandler(this.SortAllRows);
+            this.SortAllHorizontalButton.Click += new System.EventHandler(this.SortAllRowsButton_Click);
             // 
             // SortRandomRowsButton
             // 

@@ -8,14 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace PixelSortApp
 {
     public partial class PixelSort : Form
     {
+        PixelEngine engine = new PixelEngine();
+
         string currentFilePath;
         Bitmap currentImage;
         double rowChance = 0.5;
         double columnChance = 0.5;
+
+        Random RNG = new Random();
 
         public PixelSort()
         {
@@ -29,6 +33,8 @@ namespace WindowsFormsApp1
         {
             
         }
+
+        #region save and load
 
         private void LoadImageButtonClick(object sender, EventArgs e)
         {
@@ -52,56 +58,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void SortAllRows(object sender, EventArgs e)
-        {
-            if(currentImage == null)
-            {
-                return;
-            }
+        #endregion
 
-            for(int i = 0; i < currentImage.Height; i++)
-            {
-                //Multithread for performance at some point
-                SortRow(i);
-            }
-
-            pictureBox1.Image = currentImage;
-        }
-
-        private void SortRow(int row)
-        {
-            List<int> PixelRow = new List<int>();
-
-            for (int i = 0; i < currentImage.Width; i++)
-            {
-                PixelRow.Add(currentImage.GetPixel(i, row).ToArgb());
-            }
-
-            PixelRow.Sort();
-
-            for (int i = 0; i < currentImage.Width; i++)
-            {
-                currentImage.SetPixel(i, row, Color.FromArgb(PixelRow[i]));
-            }
-        }
-
-        private void SortColumn(int column)
-        {
-            List<int> PixelColumn = new List<int>();
-
-            for(int i = 0; i < currentImage.Height; i++)
-            {
-                PixelColumn.Add(currentImage.GetPixel(column, i).ToArgb());
-            }
-
-            PixelColumn.Sort();
-
-            for(int i = 0; i < currentImage.Height; i++)
-            {
-                currentImage.SetPixel(column, i, Color.FromArgb(PixelColumn[i]));
-            }
-        }
-
+        #region buttons
         private void SortRandomRowsButton_Click(object sender, EventArgs e)
         {
             if (currentImage == null)
@@ -109,18 +68,15 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            Random RNG = new Random();
             for (int i = 0; i < currentImage.Height; i++)
             {
-                double randomDouble = RNG.NextDouble();
                 //Multithread for performance at some point
-                if(randomDouble < rowChance)
+                if(Chance(rowChance))
                 {
-                    SortRow(i);
+                    engine.SortRow(currentImage, i);
                 }
             }
-
-            pictureBox1.Image = currentImage;
+            UpdateImagePreview();
         }
 
         private void SortRandomColumnsButton_Click(object sender, EventArgs e)
@@ -130,27 +86,15 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            Random RNG = new Random();
             for(int i = 0; i < currentImage.Width; i++)
             {
-                double randomDouble = RNG.NextDouble();
-                if(randomDouble < columnChance)
+                if(Chance(rowChance))
                 {
-                    SortColumn(i);
+                    engine.SortColumn(currentImage, i);
                 }
             }
 
-            pictureBox1.Image = currentImage;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if(double.TryParse(RowChanceField.Text, out rowChance)){}
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (double.TryParse(ColumnChanceField.Text, out columnChance)){}
+            UpdateImagePreview();
         }
 
         private void SortAllColumnsButton_Click(object sender, EventArgs e)
@@ -162,10 +106,60 @@ namespace WindowsFormsApp1
 
             for (int i = 0; i < currentImage.Width; i++)
             {
-                SortColumn(i);
+                engine.SortColumn(currentImage, i);
             }
 
+            UpdateImagePreview();
+        }
+
+        private void SortAllRowsButton_Click(object sender, EventArgs e)
+        {
+            if(currentImage == null)
+            {
+                return;
+            }
+
+            for(int i = 0; i < currentImage.Height; i++)
+            {
+                engine.SortRow(currentImage, i);
+            }
+
+            UpdateImagePreview();
+        }
+
+        #endregion
+
+        #region parsing settings
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if(double.TryParse(RowChanceField.Text, out rowChance)){}
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(ColumnChanceField.Text, out columnChance)){}
+        }
+
+        #endregion
+
+        #region utilities
+
+        private void UpdateImagePreview()
+        {
             pictureBox1.Image = currentImage;
         }
+
+        private bool Chance(double targetValue)
+        {
+            double rngValue = RNG.NextDouble();
+            if(rngValue < targetValue)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }
