@@ -15,6 +15,24 @@ namespace PixelSortApp
             return argbIn;
         }
 
+        public List<Color> SortList(List<Color> colorIn)
+        {
+            List<int> tempList = new List<int>();
+            foreach(Color pixel in colorIn)
+            {
+                tempList.Add(pixel.ToArgb());
+            }
+            tempList = SortList(tempList);
+
+            List<Color> outList = new List<Color>();
+            foreach(int argbValue in tempList)
+            {
+                outList.Add(Color.FromArgb(argbValue));
+            }
+
+            return outList;
+        }
+
         public List<int> GetRow(Bitmap bitmapIn, int targetRow)
         {
             List<int> argbOut = new List<int>();
@@ -71,6 +89,46 @@ namespace PixelSortApp
             List<int> argb = GetRow(bitmapIn, targetRow);
             argb = SortList(argb);
             WriteRow(bitmapIn, targetRow, argb);
+        }
+
+        public Chunk GetChunk(Bitmap bitmapIn, int chunkHeight, int chunkWidth, int chunkX, int chunkY)
+        {
+            Chunk chunkOut = new Chunk(chunkWidth, chunkHeight, chunkX, chunkY);
+
+            int chunkStartX = chunkX * chunkWidth;
+            int chunkStartY = chunkY * chunkHeight;
+
+            for(int i = 0; i < chunkHeight; i++)
+            {
+                for(int j = 0; j < chunkWidth; j++)
+                {
+                    chunkOut.pixels.Add(bitmapIn.GetPixel(chunkStartX + j, chunkStartY + i));
+                }
+            }
+
+            return chunkOut;
+        }
+
+        public void WriteChunk(Bitmap bitmapIn, Chunk chunkIn)
+        {
+            int startX = chunkIn.chunkX * chunkIn.chunkWidth;
+            int startY = chunkIn.chunkY * chunkIn.chunkHeight;
+
+            for(int i = 0; i < chunkIn.chunkHeight; i++)
+            {
+                for(int j = 0; j < chunkIn.chunkWidth; j++)
+                {
+                    int pixelListIndex = (i * chunkIn.chunkHeight) + j;
+                    bitmapIn.SetPixel(startX + j, startY + i, chunkIn.pixels[pixelListIndex]);
+                }
+            }
+        }
+
+        public void SortChunk(Bitmap bitmapIn, int chunkHeight, int chunkWidth, int chunkX, int chunkY)
+        {
+            Chunk chunk = GetChunk(bitmapIn, chunkHeight, chunkWidth, chunkX, chunkY);
+            chunk.pixels = SortList(chunk.pixels);
+            WriteChunk(bitmapIn, chunk);
         }
     }
 }

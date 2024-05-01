@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chunk.cs" />
     <Compile Include="PixelSort.cs">
       <SubType>Form</SubType>
     </Compile>
