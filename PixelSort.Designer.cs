@@ -40,6 +40,11 @@ namespace PixelSortApp
             this.label2 = new System.Windows.Forms.Label();
             this.SortRandomColumnsButton = new System.Windows.Forms.Button();
             this.SortAllColumnsButton = new System.Windows.Forms.Button();
+            this.sortRandomChunksButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chunkSizeXField = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.chunkSizeYField = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +88,7 @@ namespace PixelSortApp
             // 
             // SortRandomRowsButton
             // 
-            this.SortRandomRowsButton.Location = new System.Drawing.Point(454, 70);
+            this.SortRandomRowsButton.Location = new System.Drawing.Point(455, 71);
             this.SortRandomRowsButton.Name = "SortRandomRowsButton";
             this.SortRandomRowsButton.Size = new System.Drawing.Size(136, 23);
             this.SortRandomRowsButton.TabIndex = 4;
@@ -110,7 +115,7 @@ namespace PixelSortApp
             // 
             // ColumnChanceField
             // 
-            this.ColumnChanceField.Location = new System.Drawing.Point(640, 74);
+            this.ColumnChanceField.Location = new System.Drawing.Point(640, 68);
             this.ColumnChanceField.Name = "ColumnChanceField";
             this.ColumnChanceField.Size = new System.Drawing.Size(130, 20);
             this.ColumnChanceField.TabIndex = 5;
@@ -119,7 +124,7 @@ namespace PixelSortApp
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(640, 58);
+            this.label2.Location = new System.Drawing.Point(640, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 6;
@@ -127,7 +132,7 @@ namespace PixelSortApp
             // 
             // SortRandomColumnsButton
             // 
-            this.SortRandomColumnsButton.Location = new System.Drawing.Point(454, 99);
+            this.SortRandomColumnsButton.Location = new System.Drawing.Point(455, 100);
             this.SortRandomColumnsButton.Name = "SortRandomColumnsButton";
             this.SortRandomColumnsButton.Size = new System.Drawing.Size(136, 23);
             this.SortRandomColumnsButton.TabIndex = 4;
@@ -145,12 +150,61 @@ namespace PixelSortApp
             this.SortAllColumnsButton.UseVisualStyleBackColor = true;
             this.SortAllColumnsButton.Click += new System.EventHandler(this.SortAllColumnsButton_Click);
             // 
+            // sortRandomChunksButton
+            // 
+            this.sortRandomChunksButton.Location = new System.Drawing.Point(455, 150);
+            this.sortRandomChunksButton.Name = "sortRandomChunksButton";
+            this.sortRandomChunksButton.Size = new System.Drawing.Size(136, 23);
+            this.sortRandomChunksButton.TabIndex = 8;
+            this.sortRandomChunksButton.Text = "Sort Random Chunks";
+            this.sortRandomChunksButton.UseVisualStyleBackColor = true;
+            this.sortRandomChunksButton.Click += new System.EventHandler(this.sortRandomChunksButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(643, 150);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Chunk Size X";
+            // 
+            // chunkSizeXField
+            // 
+            this.chunkSizeXField.Location = new System.Drawing.Point(643, 167);
+            this.chunkSizeXField.Name = "chunkSizeXField";
+            this.chunkSizeXField.Size = new System.Drawing.Size(130, 20);
+            this.chunkSizeXField.TabIndex = 9;
+            this.chunkSizeXField.TextChanged += new System.EventHandler(this.chunkSizeX_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(643, 190);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Chunk Size Y";
+            // 
+            // chunkSizeYField
+            // 
+            this.chunkSizeYField.Location = new System.Drawing.Point(643, 207);
+            this.chunkSizeYField.Name = "chunkSizeYField";
+            this.chunkSizeYField.Size = new System.Drawing.Size(130, 20);
+            this.chunkSizeYField.TabIndex = 9;
+            this.chunkSizeYField.TextChanged += new System.EventHandler(this.chunkSizeYField_TextChanged);
+            // 
             // PixelSort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.chunkSizeYField);
+            this.Controls.Add(this.chunkSizeXField);
+            this.Controls.Add(this.sortRandomChunksButton);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.SortAllColumnsButton);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ColumnChanceField);
@@ -183,6 +237,11 @@ namespace PixelSortApp
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button SortRandomColumnsButton;
         private System.Windows.Forms.Button SortAllColumnsButton;
+        private System.Windows.Forms.Button sortRandomChunksButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox chunkSizeXField;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox chunkSizeYField;
     }
 }
 

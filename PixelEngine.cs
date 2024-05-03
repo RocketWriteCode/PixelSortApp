@@ -98,11 +98,15 @@ namespace PixelSortApp
             int chunkStartX = chunkX * chunkWidth;
             int chunkStartY = chunkY * chunkHeight;
 
+
             for(int i = 0; i < chunkHeight; i++)
             {
                 for(int j = 0; j < chunkWidth; j++)
                 {
-                    chunkOut.pixels.Add(bitmapIn.GetPixel(chunkStartX + j, chunkStartY + i));
+                    if(chunkStartX + j < bitmapIn.Width && chunkStartY + i < bitmapIn.Height)
+                    {
+                        chunkOut.pixels.Add(bitmapIn.GetPixel(chunkStartX + j, chunkStartY + i));
+                    }
                 }
             }
 
@@ -118,8 +122,14 @@ namespace PixelSortApp
             {
                 for(int j = 0; j < chunkIn.chunkWidth; j++)
                 {
-                    int pixelListIndex = (i * chunkIn.chunkHeight) + j;
-                    bitmapIn.SetPixel(startX + j, startY + i, chunkIn.pixels[pixelListIndex]);
+                    if(startX + j < bitmapIn.Width && startY + i < bitmapIn.Height)
+                    {
+                        int pixelListIndex = (i * chunkIn.chunkHeight) + j;
+                        if(pixelListIndex < chunkIn.pixels.Count)
+                        {
+                            bitmapIn.SetPixel(startX + j, startY + i, chunkIn.pixels[pixelListIndex]);
+                        }
+                    }
                 }
             }
         }

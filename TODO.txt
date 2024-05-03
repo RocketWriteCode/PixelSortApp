@@ -1,5 +1,5 @@
 ﻿Create input fields for chunk size
 Create input fields for chunk location
 Create "Sort chunk" button
-Create "Sort random chunk" button
 Create "Sort all chunks" button
+Fix bug in chunk sorting

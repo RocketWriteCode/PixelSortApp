@@ -18,6 +18,9 @@ namespace PixelSortApp
         Bitmap currentImage;
         double rowChance = 0.5;
         double columnChance = 0.5;
+        double chunkChance = 0.5;
+        int chunkSizeX = 8;
+        int chunkSizeY = 8;
 
         Random RNG = new Random();
 
@@ -27,6 +30,8 @@ namespace PixelSortApp
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             RowChanceField.Text = rowChance.ToString();
             ColumnChanceField.Text = columnChance.ToString();
+            chunkSizeXField.Text = chunkSizeX.ToString();
+            chunkSizeYField.Text = chunkSizeY.ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -127,6 +132,22 @@ namespace PixelSortApp
             UpdateImagePreview();
         }
 
+        private void sortRandomChunksButton_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i * chunkSizeY < currentImage.Height; i++)
+            {
+                for(int j = 0; j * chunkSizeX < currentImage.Width; j++)
+                {
+                    if(Chance(chunkChance))
+                    {
+                        engine.SortChunk(currentImage, chunkSizeY, chunkSizeX, j, i);
+                    }
+                }
+            }
+
+            UpdateImagePreview();
+        }
+
         #endregion
 
         #region parsing settings
@@ -139,6 +160,16 @@ namespace PixelSortApp
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             if (double.TryParse(ColumnChanceField.Text, out columnChance)){}
+        }
+
+        private void chunkSizeX_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(chunkSizeXField.Text, out chunkSizeX)){}
+        }
+
+        private void chunkSizeYField_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(chunkSizeYField.Text, out chunkSizeY)){}
         }
 
         #endregion
@@ -160,6 +191,10 @@ namespace PixelSortApp
             return false;
         }
 
+
+
         #endregion
+
+        
     }
 }
